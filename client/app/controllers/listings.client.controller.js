@@ -15,7 +15,7 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
     };
 
     $scope.findOne = function() {
-      //debugger; // TODO disabled
+      debugger;
       $scope.loading = true;
 
       /*
@@ -83,7 +83,7 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         var listing = {
             name: $scope.name,
             code: $scope.code,
-            address: $scope.address,
+            address: $scope.address
         };
         var id = $stateParams.listingId;
         Listings.update(id, listing).then(function(response) {
