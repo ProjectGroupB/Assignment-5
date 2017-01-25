@@ -19,7 +19,12 @@ angular.module('listings').factory('Listings', ['$http',
 
       delete: function(id) {
         return $http.delete('http://localhost:8080/api/listings/' + id);
+      },
+        /* I am thinking this might be a thing, but not sure yet
+      edit: function(id){
+          return $http.edit('http://localhost:8080/api/listings/' + id);
       }
+      */
     };
 
     return methods;
