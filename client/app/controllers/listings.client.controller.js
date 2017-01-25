@@ -79,9 +79,21 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         successfully finished, navigate back to the 'listing.list' state using $state.go(). If an error 
         occurs, pass it to $scope.error. 
        */
-        // TODO implement this function
       if (isValid) {
-        //$scope
+        console.log("in the update function");
+        var listing = {
+            name: $scope.name,
+            code: $scope.code,
+            address: $scope.address
+        };
+        var id = $stateParams.listingId;
+        Listings.update(id, listing).then(function(response) {
+            $state.go('listings.list', { successMessage: 'Listing succesfully updated!' });
+        }, function(error) {
+            $scope.error = 'Unable to update listing!\n' + error;
+        });
+      } else {
+        $scope.error = 'Unable to update listing!\n' + error;
       }
     };
 
