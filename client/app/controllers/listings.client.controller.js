@@ -15,7 +15,7 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
     };
 
     $scope.findOne = function() {
-      debugger;
+      //debugger; // TODO disabled
       $scope.loading = true;
 
       /*
@@ -80,11 +80,10 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         occurs, pass it to $scope.error. 
        */
       if (isValid) {
-        console.log("in the update function");
         var listing = {
             name: $scope.name,
             code: $scope.code,
-            address: $scope.address
+            address: $scope.address,
         };
         var id = $stateParams.listingId;
         Listings.update(id, listing).then(function(response) {
@@ -93,7 +92,7 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
             $scope.error = 'Unable to update listing!\n' + error;
         });
       } else {
-        $scope.error = 'Unable to update listing!\n' + error;
+        $scope.error = 'Did not update listing!';
       }
     };
 
@@ -122,6 +121,21 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         longitude: -82.3410518
       }, 
       zoom: 14
+    }
+
+    // This function runs one time when the edit page is loaded and it initilizes the edit text boxes with the right text
+    $scope.editinit = function(){
+        var id = $stateParams.listingId;
+        Listings.read(id)
+            .then(function(response) {
+                var listing = response.data;
+                $scope.name = listing.name;
+                $scope.code = listing.code;
+                $scope.address = listing.address;
+            }, function(error) {
+                $scope.error = 'Unable to retrieve listing with id "' + id + '"\n' + error;
+                $scope.loading = false;
+            });
     }
   }
 ]);
