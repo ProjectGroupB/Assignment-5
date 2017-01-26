@@ -1,6 +1,8 @@
 angular.module('listings').controller('ListingsController', ['$scope', '$location', '$stateParams', '$state', 'Listings', 
   function($scope, $location, $stateParams, $state, Listings){
-    $scope.find = function() {
+      $scope.markers = [];
+
+      $scope.find = function() {
       /* set loader*/
       $scope.loading = true;
 
@@ -15,7 +17,7 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
     };
 
     $scope.findOne = function() {
-      debugger;
+      // TODO disabled for now debugger;
       $scope.loading = true;
 
       /*
@@ -137,5 +139,28 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
                 $scope.loading = false;
             });
     }
+
+      $scope.markersInit = function() {
+          Listings.getAll().then(function(response) {
+              $scope.listings = response.data;
+              $scope.markers = [];
+
+              for (var i = 0; i < $scope.listings.length; i++) {
+                  $scope.markers.push(Object.assign({}, $scope.listings[i], {
+                      id: i,
+                      latitude: $scope.listings[i].coordinates.latitude,
+                      longitude: $scope.listings[i].coordinates.longitude,
+                      show: false
+                  }));
+              }
+          }, function(error) {
+              $scope.loading = false;
+              $scope.error = 'Unable to retrieve listings!\n' + error;
+          });
+      };
+
+      $scope.onClickMarker = function(marker, eventName, model) {
+          model.show = !model.show;
+      };
   }
 ]);
