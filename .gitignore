@@ -2,7 +2,8 @@
 .DS_Store
 
 # configuration files
-server/config/config.js
+# commenting out because Heroku can't see config  -NK
+# server/config/config.js
 
 # node
 node_modules
