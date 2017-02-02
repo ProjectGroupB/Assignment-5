@@ -2,11 +2,11 @@ angular.module('listings').factory('Listings', ['$http',
   function($http) {
     var methods = {
       getAll: function() {
-        return $http.get('https://bootcampsix.herokuapp.com/listings/');
+        return $http.get('https://bootcampsix.herokuapp.com/listings');
       },
 
       create: function(listing) {
-        return $http.post('https://bootcampsix.herokuapp.com/listings/', listing);
+        return $http.post('https://bootcampsix.herokuapp.com/listings', listing);
       }, 
 
       read: function(id) {
